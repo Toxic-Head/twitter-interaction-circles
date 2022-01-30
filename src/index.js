@@ -19,11 +19,16 @@ async function main() {
 		consumer_key: process.env.CONSUMER_KEY,
 		consumer_secret: process.env.CONSUMER_SECRET,
 	});
-	const userName = process.env.USERNAME;
-	if (!userName) console.error("No User-Name defined in Environment (Variable 'USERNAME' needed for now)");
+	const userName = process.env.TWITTER_NAME;
+	if (!userName) console.error("No User-Name defined in Environment (Variable 'TWITTER_NAME' needed for now)");
 	let usersToIgnore = new Array(0);
-	if(!process.env.IGNORED_USERS) {
+	//assume that is filled in environment
+	if(process.env.IGNORED_USERS) {
 		usersToIgnore = process.env.IGNORED_USERS.split(',');
+		console.info("This User-Names will be ignored:");
+		for(let i = 0; i < usersToIgnore.length; i++){
+			console.info(i + ": " + usersToIgnore[i]);
+		}
 	} else {
 		console.warn("No Ignored User List found (Environment: IGNORED_USERS=string1,string2,...), " +
 			"Use empty Array (nothing will be ignored)");
